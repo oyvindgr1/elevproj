@@ -41,7 +41,7 @@ func main() {
                         return
                 }
 	
-	fmt.Println(m.Astring)
+	fmt.Println(m.HeisNr)
 
 
         fmt.Println("About to write to connection")

@@ -41,4 +41,13 @@ func getObstructionSignal() bool {
 	return Read_bit(OBSTRUCTION)
 }
 
+func getStopSignal() bool {
+	return Read_bit(STOP)
+}
+
+func setStopLamp(int i) {
+	Set_bit(LIGHT_STOP)
+}
+
+func getFloorSensor() int {
 	
