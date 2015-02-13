@@ -1,0 +1,7 @@
+
+package driver
+/*
+#cgo LDFLAGS: -lcomedi -lm
+#include "io.h"
+*/
+import "C"
