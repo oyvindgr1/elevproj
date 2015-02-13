@@ -13,7 +13,7 @@ type State struct {
     Astring string
 }
 
-var m state
+var m State
 
 func main() {
 //	p []byte;
