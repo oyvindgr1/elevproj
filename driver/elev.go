@@ -37,6 +37,8 @@ func setDoorOpenLamp(int i) {
 	}
 }
 
+//kommentar
+
 func getObstructionSignal() bool {
 	return Read_bit(OBSTRUCTION)
 }
