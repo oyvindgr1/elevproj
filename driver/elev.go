@@ -15,7 +15,21 @@ type Order struct {
 
 const N_BUTTONS 3
 
-
+var buttonMap = map[int]int{
+		FLOOR_COMMAND1: 0,
+		FLOOR_COMMAND2: 1,
+		FLOOR_COMMAND3: 2,
+		FLOOR_COMMAND4: 3,
+		FLOOR_UP1:      4,
+		FLOOR_UP2:      5,
+		FLOOR_UP3:      6,
+		FLOOR_DOWN2:    7,
+		FLOOR_DOWN3:    8,
+		FLOOR_DOWN4:    9,
+	}
+	func clearButtonLight(int buttonKey){
+		for i
+	}
 func Init() () {
 	if !IoInit() {
 		fmt.Printf("IO initiated\n")
