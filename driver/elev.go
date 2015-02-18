@@ -37,11 +37,6 @@ func setDoorOpenLamp(int i) {
 	}
 }
 
-<<<<<<< HEAD
-Heihei fra thomas
-=======
-//kommentar
->>>>>>> FETCH_HEAD
 
 func getObstructionSignal() bool {
 	return Read_bit(OBSTRUCTION)
