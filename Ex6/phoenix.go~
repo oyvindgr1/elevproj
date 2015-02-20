@@ -59,6 +59,7 @@ func main() {
 		Println(counter)
 		time.Sleep(time.Second)
 	}
+	UDPconn.Close()
 		
 }
 
