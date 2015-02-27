@@ -42,7 +42,6 @@ var lightMap = map[int]int{
 	SENSOR4: 4,
 }
 
-
 func clearButtonLight(int buttonKey){
 	for i
 }
@@ -58,17 +57,19 @@ func Init() () {
 	}
 	for i := 0; i < N_FLOORS;i++ {
 		if i != 0 {
-			SetButtonLamp
+			SetButtonLamp("down", i, 0)
 		}
 		if I != N_FLOORS-1 {
-			SetButtonLamp
+			SetButtonLamp("up", i, 0)
 		}
-		SetButtonLamp
+		SetButtonLamp("internal", i, 0)
 		
 	//Clear the lights!
 }
 
-func SetButtonLamp(button buttonMap
+func SetButtonLamp(dir string, floor int, val int) {
+	
+
 
 func setDoorOpenLamp(int i) {
 	if  i == 1 {
@@ -144,12 +145,4 @@ func clearLights() {
 	ClearLight(buttonMap[7])
 	ClearLight(buttonMap[8])
 	ClearLight(buttonMap[9])
-
-
-
-
-
-
-
-
 
