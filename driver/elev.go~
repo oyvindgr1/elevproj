@@ -22,7 +22,7 @@ const
 const N_BUTTONS 3
 const N_FLOORS 4
 
-var buttonMap = map[int]Button{
+var buttonMap = map[int]Order{
 		FLOOR_COMMAND1: {1, ORDER_INTERNAL},
 		FLOOR_COMMAND2: {2, ORDER_INTERNAL},
 		FLOOR_COMMAND3: {3, ORDER_INTERNAL},
