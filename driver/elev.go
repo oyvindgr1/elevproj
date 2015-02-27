@@ -9,38 +9,66 @@ import (
 
 type Order struct {
 	Floor int
-	Direction 
+	Direction OrderDirection
 }
 	
-
+type OrderDirection int
+const (
+	ORDER_UP OrderDirection = iota
+	ORDER_DOWN
+	ORDER_INTERNAL
+)
+const 
 const N_BUTTONS 3
+const N_FLOORS 4
 
-var buttonMap = map[int]int{
-		FLOOR_COMMAND1: 0,
-		FLOOR_COMMAND2: 1,
-		FLOOR_COMMAND3: 2,
-		FLOOR_COMMAND4: 3,
-		FLOOR_UP1:      4,
-		FLOOR_UP2:      5,
-		FLOOR_UP3:      6,
-		FLOOR_DOWN2:    7,
-		FLOOR_DOWN3:    8,
-		FLOOR_DOWN4:    9,
-	}
-	func clearButtonLight(int buttonKey){
-		for i
-	}
+var buttonMap = map[int]Order{
+		FLOOR_COMMAND1: {1, ORDER_INTERNAL},
+		FLOOR_COMMAND2: {2, ORDER_INTERNAL},
+		FLOOR_COMMAND3: {3, ORDER_INTERNAL},
+		FLOOR_COMMAND4: {4, ORDER_INTERNAL},
+		FLOOR_UP1:      {1, ORDER_UP},
+		FLOOR_UP2:      {2, ORDER_UP},
+		FLOOR_UP3:      {3, ORDER_UP},
+		FLOOR_DOWN2:    {2, ORDER_DOWN},
+		FLOOR_DOWN3:    {3, ORDER_DOWN},
+		FLOOR_DOWN4:    {4, ORDER_DOWN},
+}
+
+var lightMap = map[int]int{
+	SENSOR1: 1,
+	SENSOR2: 2,
+	SENSOR3: 3,
+	SENSOR4: 4,
+}
+
+
+func clearButtonLight(int buttonKey){
+	for i
+}
+
 func Init() () {
 	if !IoInit() {
-		fmt.Printf("IO initiated\n")
+		fmt.Printf("IO not initiated\n")
+		return 0	
 	}
 	else {
-		fmt.Printf("IO not initiated\n")
+		fmt.Printf("IO initiated\n")
+		
 	}
+	for i := 0; i < N_FLOORS;i++ {
+		if i != 0 {
+			SetButtonLamp
+		}
+		if I != N_FLOORS-1 {
+			SetButtonLamp
+		}
+		SetButtonLamp
+		
 	//Clear the lights!
-	
-
 }
+
+func SetButtonLamp(button buttonMap
 
 func setDoorOpenLamp(int i) {
 	if  i == 1 {
@@ -105,7 +133,17 @@ func elev_set_floor_indicator(int floor) {
 }
 
 
+func clearLights() {
 
+	ClearLight(buttonMap[1])	
+	ClearLight(buttonMap[2])	
+	ClearLight(buttonMap[3])
+	ClearLight(buttonMap[4])
+	ClearLight(buttonMap[5])
+	ClearLight(buttonMap[6])
+	ClearLight(buttonMap[7])
+	ClearLight(buttonMap[8])
+	ClearLight(buttonMap[9])
 
 
 
