@@ -50,9 +50,6 @@ var lightMap = map[int]int{
 	SENSOR4: 4,
 }
 
-func clearButtonLight(int buttonKey){
-	for i
-}
 
 func Init() () {
 	if !IoInit() {
@@ -80,24 +77,29 @@ func Init() () {
 
 func SetStopLamp(i int) {
 	if i == 1 {
-		IoSetBit(LIGHT_STOP)
+		Set_bit(LIGHT_STOP)
 	}
 	else {
-		IoClearBit(LIGHT_STOP)
+		Clear_bit(LIGHT_STOP)
 	}
 }
 
 func SetDoorOpenLamp(i int) {
 	if i == 1 {
-		IoSetBit(DOOR_OPEN)
+		Set_bit(LIGHT_DOOR_OPEN)
 	}
 	else{
-		IoClearBit(DOOR_OPEN)
+		Clear_bit(LIGHT_DOOR_OPEN)
 	}
 }
 
-func SetFloorIndicator(i int) {
-
+func GetButtonSignal(button OrderDirection, floor int) int {
+	// Need error handling before proceeding$
+	if Read_bit(button_channel_matrix[floor][int(button)]) {
+		return 1
+	} else {
+		return 0
+	}
 }
 
 func SetButtonLamp(button OrderDirection, floor int, val int) {
@@ -112,39 +114,31 @@ func SetButtonLamp(button OrderDirection, floor int, val int) {
 			return
 		}
 		if val == 1 {
-			IoSetBit(lampChannelArray[floor][int(button)])		
+			Set_bit(lampChannelArray[floor][int(button)])		
 		}	
 		else {
-			IoClearBit(lampChannelArray[floor][int(button)]
+			Clear_bit(lampChannelArray[floor][int(button)]
 		}	
 	else {
 		fmt.Printf("Floor and direction is out of bounds")
 		return				
 
 
-func setDoorOpenLamp(int i) {
-	if  i == 1 {
-		Set_bit(LIGHT_DOOR_OPEN)
-	}
-	else {
-		Clear_bit(LIGHT_DOOR_OPEN)
-	}
-}
 
 
-func getObstructionSignal() bool {
+func GetObstructionSignal() bool {
 	return Read_bit(OBSTRUCTION)
 }
 
-func getStopSignal() bool {
+func GetStopSignal() bool {
 	return Read_bit(STOP)
 }
 
-func setStopLamp(int i) {
+func SetStopLamp(int i) {
 	Set_bit(LIGHT_STOP)
 }
 
-func getFloorSensor() int {
+func GetFloorSensor() int {
 	
 	if (Read_bit(SENSOR_FLOOR1)) {
 		return 0;
@@ -163,7 +157,7 @@ func getFloorSensor() int {
 	}
 }
 
-func elev_set_floor_indicator(int floor) {
+func SetFloorIndicator(int floor) {
     // Binary encoding. One light must always be on.
     if (floor >= 0 && floor < N_FLOORS){
 	    if (floor & 0x02){
@@ -183,17 +177,3 @@ func elev_set_floor_indicator(int floor) {
 		fmt.Printf("elev_set_floor_indicator: Elevator out of range.")
 	}
 }
-
-
-func clearLights() {
-
-	ClearLight(buttonMap[1])	
-	ClearLight(buttonMap[2])	
-	ClearLight(buttonMap[3])
-	ClearLight(buttonMap[4])
-	ClearLight(buttonMap[5])
-	ClearLight(buttonMap[6])
-	ClearLight(buttonMap[7])
-	ClearLight(buttonMap[8])
-	ClearLight(buttonMap[9])
-
