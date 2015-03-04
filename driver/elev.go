@@ -4,9 +4,8 @@ import (
 	"fmt"
 	"elevproj/io.go"
 	"math"
-
-
 )
+
 var lampChannelMatrix= [N_FLOORS][N_BUTTONS]int{
 	{LIGHT_UP1, LIGHT_DOWN1, LIGHT_COMMAND1},
 	{LIGHT_UP2, LIGHT_DOWN2, LIGHT_COMMAND2},
@@ -64,7 +63,6 @@ func Init() int {
 	}
 	else {
 		fmt.Printf("IO initiated\n")
-		
 	}
 	for i := 0; i < N_FLOORS; i++ {
 		if i != 0 {
@@ -74,7 +72,6 @@ func Init() int {
 			SetButtonLamp(ORDER_UP, i, 0)
 		}
 		SetButtonLamp(ORDER_INTERNAL, i, 0)
-		
 	}
 	SetStopLamp(0)
 	SetDoorOpenLamp(0)
