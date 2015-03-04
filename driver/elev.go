@@ -57,7 +57,7 @@ var lightMap = map[int]int{
 }*/
 
 
-func Init() () {
+func Init() int {
 	if !IoInit() {
 		fmt.Printf("IO not initiated\n")
 		return 0	
@@ -79,6 +79,7 @@ func Init() () {
 	SetStopLamp(0)
 	SetDoorOpenLamp(0)
 	SetFloorIndicator(0)
+	return 1
 }
 
 func SetStopLamp(i int) {
@@ -151,10 +152,6 @@ func GetObstructionSignal() bool {
 
 func GetStopSignal() bool {
 	return Read_bit(STOP)
-}
-
-func SetStopLamp(int i) {
-	Set_bit(LIGHT_STOP)
 }
 
 func GetFloorSensorSignal() int {
