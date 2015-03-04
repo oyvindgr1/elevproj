@@ -3,17 +3,23 @@ package driver
 import (
 	"fmt"
 	"elevproj/io.go"
+	"math"
 
 
 )
-type lampChannelMatrix= [N_FLOORS][N_BUTTONS]int{
+var lampChannelMatrix= [N_FLOORS][N_BUTTONS]int{
 	{LIGHT_UP1, LIGHT_DOWN1, LIGHT_COMMAND1},
 	{LIGHT_UP2, LIGHT_DOWN2, LIGHT_COMMAND2},
 	{LIGHT_UP3, LIGHT_DOWN3, LIGHT_COMMAND3},
 	{LIGHT_UP4, LIGHT_DOWN4, LIGHT_COMMAND4},
 }
 
-	
+var buttonChannelMatrix = [N_FLOORS][N_BUTTONS]int{
+	{BUTTON_UP1, BUTTON_DOWN1, BUTTON_COMMAND1},
+	{BUTTON_UP2, BUTTON_DOWN2, BUTTON_COMMAND2},
+	{BUTTON_UP3, BUTTON_DOWN3, BUTTON_COMMAND3},
+	{BUTTON_UP4, BUTTON_DOWN4, BUTTON_COMMAND4},
+}	
 
 type Order struct {
 	Floor int
@@ -26,10 +32,10 @@ const (
 	ORDER_DOWN
 	ORDER_INTERNAL
 )
-const 
+
 const N_BUTTONS 3
 const N_FLOORS 4
-
+/*
 var buttonMap = map[int]Order{
 	FLOOR_COMMAND1: {1, ORDER_INTERNAL},
 	FLOOR_COMMAND2: {2, ORDER_INTERNAL},
@@ -48,7 +54,7 @@ var lightMap = map[int]int{
 	SENSOR2: 2,
 	SENSOR3: 3,
 	SENSOR4: 4,
-}
+}*/
 
 
 func Init() () {
@@ -60,7 +66,7 @@ func Init() () {
 		fmt.Printf("IO initiated\n")
 		
 	}
-	for i := 0; i < N_FLOORS;i++ {
+	for i := 0; i < N_FLOORS; i++ {
 		if i != 0 {
 			SetButtonLamp(ORDER_DOWN, i, 0)
 		}
@@ -102,8 +108,22 @@ func GetButtonSignal(button OrderDirection, floor int) int {
 	}
 }
 
-func SetButtonLamp(button OrderDirection, floor int, val int) {
+func SetSpeed(speed int) {
+	last_speed := 0
+	if speed > 0 {
+		Clear_bit(MOTORDIR)
+	} else if speed < 0 {
+		Set_bit(MOTORDIR)
+	} else if last_speed < 0 {
+		Clear_bit(MOTORDIR)
+	} else if last_speed > 0 {
+		Set_bit(MOTORDIR)
+	}
+	last_speed = speed
+	Write_analog(MOTOR, int(2048+4*math.Abs(float64(speed))))
+}
 
+func SetButtonLamp(button OrderDirection, floor int, val int) {
 	if floor >= 0 && floor < N_FLOORS {
 		if dir == "up" && floor == 3 {
 			fmt.Printf("The current direction and floor does not exist (up and 4)")
@@ -121,10 +141,9 @@ func SetButtonLamp(button OrderDirection, floor int, val int) {
 		}	
 	else {
 		fmt.Printf("Floor and direction is out of bounds")
-		return				
-
-
-
+		return	
+	}
+}
 
 func GetObstructionSignal() bool {
 	return Read_bit(OBSTRUCTION)
@@ -138,8 +157,7 @@ func SetStopLamp(int i) {
 	Set_bit(LIGHT_STOP)
 }
 
-func GetFloorSensor() int {
-	
+func GetFloorSensorSignal() int {
 	if (Read_bit(SENSOR_FLOOR1)) {
 		return 0;
 	}
@@ -174,6 +192,6 @@ func SetFloorIndicator(int floor) {
 		}
     }
 	else {
-		fmt.Printf("elev_set_floor_indicator: Elevator out of range.")
+		fmt.Printf("SetFloorIndicator: Elevator out of range.")
 	}
 }
