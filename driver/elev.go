@@ -169,7 +169,7 @@ func GetFloorSensorSignal() int {
 	}
 }
 
-func SetFloorIndicator(int floor) {
+func SetLightFloorIndicator(int floor) {
     // Binary encoding. One light must always be on.
     if (floor >= 0 && floor < N_FLOORS){
 	    if (floor & 0x02){
