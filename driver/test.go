@@ -33,6 +33,8 @@ func main(){
 	elev.SetButtonLamp(ORDER_DOWN, 2, 0) 
 	elev.SetButtonLamp(ORDER_DOWN, 3, 0) 
 
+	//small change
+
 
 	fmt.Printf("Open door")
 	elev.SetOpenDoor(1)
