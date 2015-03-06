@@ -40,5 +40,15 @@ func main(){
 	elev.SetStopLamp(1)
 	fmt.Printf("Door open")
 	elev.SetDoorOpenLamp(1)
-}
+	fmt.Printf("Obstruction signal")
+	elev.GetObstructionSignal()
+	fmt.Printf("Stop signal")
+	elev.GetStopSignal()
+	fmt.Printf("Floor sensor signal")
+	elev.GetFloorSensorSignal()
+	fmt.Printf("Button signal")
+	elev.GetButtonSignal()
+	 
 
+
+}
