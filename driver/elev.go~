@@ -6,6 +6,14 @@ import (
 
 
 )
+type lampChannelMatrix= [N_FLOORS][N_BUTTONS]int{
+	{LIGHT_UP1, LIGHT_DOWN1, LIGHT_COMMAND1},
+	{LIGHT_UP2, LIGHT_DOWN2, LIGHT_COMMAND2},
+	{LIGHT_UP3, LIGHT_DOWN3, LIGHT_COMMAND3},
+	{LIGHT_UP4, LIGHT_DOWN4, LIGHT_COMMAND4},
+}
+
+	
 
 type Order struct {
 	Floor int
@@ -22,17 +30,17 @@ const
 const N_BUTTONS 3
 const N_FLOORS 4
 
-var buttonMap = map[int]Button{
-		FLOOR_COMMAND1: {1, ORDER_INTERNAL},
-		FLOOR_COMMAND2: {2, ORDER_INTERNAL},
-		FLOOR_COMMAND3: {3, ORDER_INTERNAL},
-		FLOOR_COMMAND4: {4, ORDER_INTERNAL},
-		FLOOR_UP1:      {1, ORDER_UP},
-		FLOOR_UP2:      {2, ORDER_UP},
-		FLOOR_UP3:      {3, ORDER_UP},
-		FLOOR_DOWN2:    {2, ORDER_DOWN},
-		FLOOR_DOWN3:    {3, ORDER_DOWN},
-		FLOOR_DOWN4:    {4, ORDER_DOWN},
+var buttonMap = map[int]Order{
+	FLOOR_COMMAND1: {1, ORDER_INTERNAL},
+	FLOOR_COMMAND2: {2, ORDER_INTERNAL},
+	FLOOR_COMMAND3: {3, ORDER_INTERNAL},
+	FLOOR_COMMAND4: {4, ORDER_INTERNAL},
+	FLOOR_UP1:      {1, ORDER_UP},
+	FLOOR_UP2:      {2, ORDER_UP},
+	FLOOR_UP3:      {3, ORDER_UP},
+	FLOOR_DOWN2:    {2, ORDER_DOWN},
+	FLOOR_DOWN3:    {3, ORDER_DOWN},
+	FLOOR_DOWN4:    {4, ORDER_DOWN},
 }
 
 var lightMap = map[int]int{
@@ -41,7 +49,6 @@ var lightMap = map[int]int{
 	SENSOR3: 3,
 	SENSOR4: 4,
 }
-
 
 func clearButtonLight(int buttonKey){
 	for i
@@ -58,17 +65,62 @@ func Init() () {
 	}
 	for i := 0; i < N_FLOORS;i++ {
 		if i != 0 {
-			SetButtonLamp
+			SetButtonLamp(ORDER_DOWN, i, 0)
 		}
 		if I != N_FLOORS-1 {
-			SetButtonLamp
+			SetButtonLamp(ORDER_UP, i, 0)
 		}
-		SetButtonLamp
+		SetButtonLamp(ORDER_INTERNAL, i, 0)
 		
-	//Clear the lights!
+	}
+	SetStopLamp(0)
+	SetDoorOpenLamp(0)
+	SetFloorIndicator(0)
 }
 
-func SetButtonLamp(button buttonMap
+func SetStopLamp(i int) {
+	if i == 1 {
+		IoSetBit(LIGHT_STOP)
+	}
+	else {
+		IoClearBit(LIGHT_STOP)
+	}
+}
+
+func SetDoorOpenLamp(i int) {
+	if i == 1 {
+		IoSetBit(DOOR_OPEN)
+	}
+	else{
+		IoSetBit(DOOR_OPEN)
+	}
+}
+
+func SetFloorIndicator(i int) {
+
+}
+
+func SetButtonLamp(button OrderDirection, floor int, val int) {
+
+	if floor >= 0 && floor < N_FLOORS {
+		if dir == "up" && floor == 3 {
+			fmt.Printf("The current direction and floor does not exist (up and 4)")
+			return
+		}
+		if dir == "down" && floor == 0 {
+			fmt.Printf("The current direction and floor does not exist (down and 0)")
+			return
+		}
+		if val == 1 {
+			IoSetBit(lampChannelArray[floor][int(button)])		
+		}	
+		else {
+			IoClearBit(lampChannelArray[floor][int(button)]
+		}	
+	else {
+		fmt.Printf("Floor and direction is out of bounds")
+		return				
+
 
 func setDoorOpenLamp(int i) {
 	if  i == 1 {
@@ -144,12 +196,4 @@ func clearLights() {
 	ClearLight(buttonMap[7])
 	ClearLight(buttonMap[8])
 	ClearLight(buttonMap[9])
-
-
-
-
-
-
-
-
 
